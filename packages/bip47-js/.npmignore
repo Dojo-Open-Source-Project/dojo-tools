@@ -1,0 +1,14 @@
+src/
+test/
+coverage/
+docs/
+.vscode/
+.idea/
+.gitignore
+.eslintrc.json
+vitest.config.ts
+pnpm-workspace.yaml
+
+*.map
+
+tsconfig*

@@ -1,0 +1,22 @@
+{
+  "name": "dojo-tools",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Monorepo for Dojo JS/TS tools",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "build": "pnpm -r --if-present run build",
+    "test": "pnpm -r --if-present run test",
+    "lint": "pnpm -r --if-present run lint",
+    "typecheck": "pnpm -r --if-present run typescript && pnpm -r --if-present run types",
+    "clean": "pnpm -r --if-present run build:clean"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.6",
+    "@types/node": "^20.19.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

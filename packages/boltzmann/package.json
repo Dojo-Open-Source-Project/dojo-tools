@@ -1,0 +1,17 @@
+{
+	"name": "@samouraiwallet/boltzmann-monorepo",
+	"private": true,
+	"engines": {
+		"node": ">=18"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.0.6",
+		"@types/node": "^20.19.4",
+		"typescript": "^5.8.3"
+	},
+	"scripts": {
+		"lint": "biome lint ./packages",
+		"lint:fix": "biome lint --write ./packages",
+		"pretty": "biome format --write ./packages"
+	}
+}

@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.0
+- Major version bump to align monorepo package releases.
+
 ## v1.1.0
 - updated dependencies
 - switched to bip32@5.0.0-rc.0

@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.0
+- Major version bump to align monorepo package releases.
+
 ## v0.4.0
 - Throw error when txo or duration limit is reached
 - Updated devDependencies

@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.0
+- Major version bump to align monorepo package releases.
+
 ## v0.6.0
 - Added gettxout method
 - Made "raw" request method public

@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.0
+- Major version bump to align monorepo package releases.
+
 ## v1.2.1
 - updated dependencies
 

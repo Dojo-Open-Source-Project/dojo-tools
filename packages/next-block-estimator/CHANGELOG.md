@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.0
+- Major version bump to align monorepo package releases.
+
 ## v0.10.0
 - added support for subsat feerates
 - updated dependencies

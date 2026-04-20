@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.0 (2026-04-20)
+- Major version bump to align monorepo package releases.
+
 ## 1.5.2 (2024-09-29)
 - Added `{rejectUnauthorized: false}` to TLSSocket
 

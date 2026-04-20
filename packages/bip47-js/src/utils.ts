@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/no-hex-escape, unicorn/number-literal-case */
 import {createBase58check, bech32} from '@scure/base';
-import {sha256, sha512} from '@noble/hashes/sha2';
-import {ripemd160} from '@noble/hashes/legacy';
-import {hmac} from '@noble/hashes/hmac';
+import {sha256, sha512} from '@noble/hashes/sha2.js';
+import {ripemd160} from '@noble/hashes/legacy.js';
+import {hmac} from '@noble/hashes/hmac.js';
 
 import type {Network} from './types.js';
 
-export {hexToBytes, bytesToHex} from '@noble/hashes/utils';
+export {hexToBytes, bytesToHex} from '@noble/hashes/utils.js';
 
 export const networks: Record<'bitcoin' | 'regtest' | 'testnet', Network> = {
     bitcoin: {

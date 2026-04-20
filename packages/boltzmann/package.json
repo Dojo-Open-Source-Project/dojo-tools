@@ -1,17 +1,45 @@
 {
-	"name": "@samouraiwallet/boltzmann-monorepo",
-	"private": true,
-	"engines": {
-		"node": ">=18"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.0.6",
-		"@types/node": "^20.19.4",
-		"typescript": "^5.8.3"
-	},
-	"scripts": {
-		"lint": "biome lint ./packages",
-		"lint:fix": "biome lint --write ./packages",
-		"pretty": "biome format --write ./packages"
-	}
+  "name": "@dojo-tools/boltzmann",
+  "version": "0.4.0",
+  "author": "Katana Cryptographic Ltd.",
+  "license": "LGPL-3.0",
+  "homepage": "https://github.com/Dojo-Open-Source-Project/boltzmann",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/boltzmann.js",
+  "exports": {
+    ".": {
+      "import": "./dist/boltzmann.js",
+      "types": "./dist/boltzmann.d.ts"
+    }
+  },
+  "types": "./dist/boltzmann.d.ts",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "lint": "pnpm exec biome lint src test",
+    "lint:fix": "pnpm exec biome lint --write src test",
+    "pretty": "pnpm exec biome format --write src test",
+    "types": "tsc --noEmit",
+    "build:clean": "rm -rf ./dist",
+    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2022 --sourcemap --outdir=dist",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
+    "prepack": "pnpm install && pnpm run lint && pnpm run types && pnpm run test && pnpm run build",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.2.2"
+  },
+  "dependencies": {
+    "big.js": "^7.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dojo-Open-Source-Project/boltzmann.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dojo-Open-Source-Project/boltzmann/issues"
+  }
 }

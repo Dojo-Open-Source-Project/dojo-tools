@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { hexToBytes } from '@noble/hashes/utils'
+import { hexToBytes } from '@noble/hashes/utils.js'
 import { areUint8ArraysEqual } from './utils.js'
 
 type RecoveryIdType = 0 | 1 | 2 | 3

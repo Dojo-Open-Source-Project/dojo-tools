@@ -1,4 +1,4 @@
-# @samouraiwallet/bip47
+# @dojo-tools/bip47
 
 A set of utilities for working with BIP47 and bitcoinjs-lib.
 
@@ -17,17 +17,17 @@ Source code was written in Typescript. Type definitions are included in the publ
 
 ## Installation
 ```bash
-npm install @samouraiwallet/bip47
+npm install @dojo-tools/bip47
 ```
 or
 
 ```bash
-pnpm add @samouraiwallet/bip47
+pnpm add @dojo-tools/bip47
 ```
 or
 
 ```bash
-yarn add @samouraiwallet/bip47
+yarn add @dojo-tools/bip47
 ```
 
 ## API documentation
@@ -39,7 +39,7 @@ mkdir bip47-docs
 cd bip47-docs
 
 # download and extract docs directory
-curl -fsSL https://github.com/Dojo-Open-Source-Project/bip47/archive/refs/heads/master.tar.gz\?path\=docs | tar -xzv --strip-components=2
+curl -fsSL https://github.com/Dojo-Open-Source-Project-tools/bip47/archive/refs/heads/master.tar.gz\?path\=docs | tar -xzv --strip-components=2
 
 # run simple HTTP file server
 npx serve .
@@ -71,7 +71,7 @@ Supported libraries:
 
 #### Create an instance of bip47
 ```ts
-import BIP47Factory from "@samouraiwallet/bip47";
+import BIP47Factory from "@dojo-tools/bip47";
 import * as ecc from "tiny-secp256k1";
 
 const bip47 = BIP47Factory(ecc);
@@ -81,7 +81,7 @@ const bip47 = BIP47Factory(ecc);
 
 **on mainnet**
 ```ts
-import type {PaymentCodePrivate} from "@samouraiwallet/bip47";
+import type {PaymentCodePrivate} from "@dojo-tools/bip47";
 
 let walletSeed: Uint8Array;
 
@@ -93,8 +93,8 @@ const alice2: PaymentCodePrivate = bip47.fromSeed(walletSeed, true);
 
 **on testnet**
 ```ts
-import type {PaymentCodePrivate} from "@samouraiwallet/bip47";
-import {networks} from "@samouraiwallet/bip47/utils";
+import type {PaymentCodePrivate} from "@dojo-tools/bip47";
+import {networks} from "@dojo-tools/bip47/utils";
 
 let walletSeed: Uint8Array;
 
@@ -108,7 +108,7 @@ const alice2: PaymentCodePrivate = bip47.fromSeed(walletSeed, true, networks['te
 
 **on mainnet**
 ```ts
-import type {PaymentCodePublic} from "@samouraiwallet/bip47";
+import type {PaymentCodePublic} from "@dojo-tools/bip47";
 
 const pcode = "PM8TJS2JxQ5ztXUpBBRnpTbcUXbUHy2T1abfrb3KkAAtMEGNbey4oumH7Hc578WgQJhPjBxteQ5GHHToTYHE3A1w6p7tU6KSoFmWBVbFGjKPisZDbP97";
 
@@ -117,8 +117,8 @@ const bob: PaymentCodePublic = bip47.fromBase58(pcode);
 
 **on testnet**
 ```ts
-import type {PaymentCodePublic} from "@samouraiwallet/bip47";
-import {networks} from "@samouraiwallet/bip47/utils";
+import type {PaymentCodePublic} from "@dojo-tools/bip47";
+import {networks} from "@dojo-tools/bip47/utils";
 
 const pcode = "PM8TJS2JxQ5ztXUpBBRnpTbcUXbUHy2T1abfrb3KkAAtMEGNbey4oumH7Hc578WgQJhPjBxteQ5GHHToTYHE3A1w6p7tU6KSoFmWBVbFGjKPisZDbP97";
 
@@ -164,7 +164,7 @@ if (bob.segwit) {
 
 **Bob's side**
 ```ts
-import type {PaymentCodePrivate, PaymentCodePublic} from "@samouraiwallet/bip47";
+import type {PaymentCodePrivate, PaymentCodePublic} from "@dojo-tools/bip47";
 
 let bobSeed: Uint8Array;
 let alicePcode: string; // base58 encoded payment code
@@ -185,7 +185,7 @@ const bobPubKey: Uint8Array = bob.derivePaymentPublicKey(alice, 0); // 0344b4795
 
 **Bob's side**
 ```ts
-import type {PaymentCodePrivate, PaymentCodePublic} from "@samouraiwallet/bip47";
+import type {PaymentCodePrivate, PaymentCodePublic} from "@dojo-tools/bip47";
 
 let bobSeed: Uint8Array;
 let alicePcode: string; // base58 encoded payment code
@@ -201,7 +201,7 @@ const bobPrivKey: Uint8Array = bob.derivePaymentPrivateKey(alice, 0);
 #### Extract payment code from notification transaction
 
 ```ts
-import type {PaymentCodePrivate, PaymentCodePublic} from "@samouraiwallet/bip47";
+import type {PaymentCodePrivate, PaymentCodePublic} from "@dojo-tools/bip47";
 
 let bobSeed: Uint8Array;
 const bob: PaymentCodePrivate = bip47.fromSeed(bob.seed);

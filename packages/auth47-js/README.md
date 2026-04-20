@@ -1,4 +1,4 @@
-# @samouraiwallet/auth47
+# @dojo-tools/auth47
 
 A JS implementation of the Auth47 protocol.
 
@@ -12,7 +12,7 @@ Source code was written in Typescript. Type definitions are included in the publ
 
 ```js
 import crypto from 'crypto'
-import { Auth47Verifier } from '@samouraiwallet/auth47';
+import { Auth47Verifier } from '@dojo-tools/auth47';
 
 const verifier = new Auth47Verifier('https://samourai.io/auth');
 ```

@@ -1,6 +1,6 @@
-import {BIP47Factory, TinySecp256k1Interface} from '@samouraiwallet/bip47';
-import * as utils from '@samouraiwallet/bip47/utils';
-import {bitcoinMessageFactory} from '@samouraiwallet/bitcoinjs-message';
+import {BIP47Factory, TinySecp256k1Interface} from '@dojo-tools/bip47';
+import * as utils from '@dojo-tools/bip47/utils';
+import {bitcoinMessageFactory} from '@dojo-tools/bitcoinjs-message';
 
 import {Auth47Error, validateProof, type Proof, createCallbackUri, type GenerateURIArgs, validateGenerateUriArgs} from './decoders.js';
 

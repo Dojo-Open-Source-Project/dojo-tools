@@ -1,4 +1,4 @@
-import {describe, it, assert} from 'vitest';
+import {describe, it, assert, beforeAll, afterAll, vi} from 'vitest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as ecc from 'tiny-secp256k1';
 
@@ -9,6 +9,14 @@ import {
 import {Auth47Verifier, VerifyResult} from '../src/index.js';
 
 describe('Auth47Verifier', () => {
+    beforeAll(() => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date('2024-01-01T00:00:00.000Z'));
+    });
+
+    afterAll(() => {
+        vi.useRealTimers();
+    });
 
     describe('generateURI()', () => {
         it('should sucessfully generate valid Auth47 URIs', () => {
@@ -84,4 +92,3 @@ describe('Auth47Verifier', () => {
         });
     });
 });
-

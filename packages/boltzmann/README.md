@@ -1,21 +1,106 @@
-# Boltzmann TS monorepo
+# Boltzmann
 
-A Typescript library computing the entropy of Bitcoin transactions and the linkability of their inputs and outputs.
+## @dojo-tools/boltzmann
 
-This is a direct port of the [Java library](https://github.com/Archive-Samourai-Wallet/boltzmann-java) to Typescript
+This library is a Typescript port of the Java library - [boltzmann-java](https://github.com/Archive-Samourai-Wallet-tools/boltzmann-java).
 
-For a description of the metrics :
+## Table of Contents
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [CLI](#cli)
+  - [Node.js](#nodejs)
 
-Bitcoin Transactions & Privacy (part 1) : https://gist.github.com/LaurentMT/e758767ca4038ac40aaf
+## Requirements
+- Node.js v18 or newer
+- NPM (or yarn or pnpm)
 
-Bitcoin Transactions & Privacy (part 2) : https://gist.github.com/LaurentMT/d361bca6dc52868573a2
+## Installation
+```shell
+npm i @dojo-tools/boltzmann
+```
 
-Bitcoin Transactions & Privacy (part 3) : https://gist.github.com/LaurentMT/e8644d5bc903f02613c6
+OR
+
+```shell
+pnpm add @dojo-tools/boltzmann
+```
+
+OR
+```shell
+yarn add @dojo-tools/boltzmann
+```
 
 ## Usage
-This monorepo consists of two packages:
-- [boltzmann](./packages/boltzmann) : the core library
-- [boltzmann-cli](./packages/boltzmann-cli) : a CLI tool
 
-## Resources
-Boltzmann is also available for Python: [https://github.com/Samourai-Wallet/boltzmann](https://github.com/Samourai-Wallet/boltzmann)
+### CLI
+See [@dojo-tools/boltzmann-cli](../boltzmann-cli)
+
+### Node.js
+
+Boltzmann computation is CPU bound and blocking, so it is recommended to run it in a separate worker thread or dedicated process to prevent blocking of the main thread.
+
+Boltzmann will throw `TimeoutError` or `TooManyTxosError` when either of these limits is encountered.
+
+```typescript
+import {Boltzmann, BoltzmannResult, TimeoutError, TooManyTxosError} from '@dojo-tools/boltzmann';
+
+// instantiate Boltzmann
+const boltzmann = new Boltzmann({
+  maxDuration: 30,
+  maxTxos: 16,
+  logLevel: "INFO"
+});
+
+// transaction object with entries for inputs and outputs
+const transaction = {
+  inputs: [
+    ["address1", 1000],
+    ["address2", 2000]
+  ],
+  outputs: [
+    ["address3", 500],
+    ["address4", 2200]
+  ]
+}
+
+try {
+  const result: BoltzmannResult = boltzmann.process(transaction);
+
+  console.log(result.toJSON());
+} catch (error) {
+  if (error instanceof TimeoutError) {
+    console.error("Timeout has been reached")
+  }
+  if (error instanceof TooManyTxosError) {
+    console.error("Too many txos to compute")
+  }
+}
+/*
+{
+  nbCmbn: number,
+  matLnkCombinations: number[][] | null,
+  matLnkProbabilities: number[][] | null,
+  entropy: number,
+  dtrmLnksById: [number, number][],
+  dtrmLnks: [string, string][],
+  txos: {
+    inputs: [string, number][],
+    outputs: [string, number][],
+  },
+  fees: number,
+  intraFees: {
+    feesMaker: number,
+    feesTaker: number,
+    hasFees: boolean,
+  },
+  efficiency: number | null,
+  nbCmbnPrfctCj: string | null,
+  nbTxosPrfctCj: {
+    nbIns: number
+    nbOuts: number
+  },
+}
+ */
+
+```

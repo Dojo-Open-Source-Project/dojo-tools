@@ -1,5 +1,5 @@
 {
-  "name": "@samouraiwallet/bitcoinjs-message",
+  "name": "@dojo-tools/bitcoinjs-message",
   "version": "3.1.1",
   "description": "bitcoinjs-message",
   "keywords": [
@@ -28,35 +28,26 @@
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
     "typescript": "tsc --noEmit",
-    "lint": "ts-standard",
-    "lint:fix": "ts-standard --fix",
+    "lint": "pnpm exec biome lint src test",
+    "lint:fix": "pnpm exec biome lint --write src test",
     "build:clean": "rm -rf dist",
-    "build:esm": "tsc -p tsconfig.build.json",
-    "build": "pnpm run build:clean && pnpm run build:esm",
-    "prepack": "pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build"
+    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
+    "prepack": "pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null",
+    "format": "pnpm exec biome format --write src test"
   },
   "dependencies": {
-    "@noble/hashes": "^1.4.0",
-    "@scure/base": "^1.2.6",
+    "@noble/hashes": "^2.2.0",
+    "@scure/base": "^2.0.0",
     "varuint-bitcoin": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.17.57",
-    "@vitest/coverage-v8": "^3.1.4",
-    "bitcoinjs-lib": "^6.1.5",
+    "bitcoinjs-lib": "^7.0.1",
     "ecpair": "^3.0.0",
-    "tiny-secp256k1": "^2.2.3",
-    "ts-standard": "^12.0.2",
-    "typescript": "^5.4.5",
-    "vitest": "^3.1.4"
+    "tiny-secp256k1": "^2.2.3"
   },
   "engines": {
     "node": ">=16.6.0"
-  },
-  "ts-standard": {
-    "ignore": [
-      "dist",
-      "vitest.config.ts"
-    ]
   }
 }

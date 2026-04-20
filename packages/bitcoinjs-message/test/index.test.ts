@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/explicit-function-return-type */
 import { test, assert } from 'vitest'
-import { bytesToHex } from '@noble/hashes/utils'
+import { bytesToHex } from '@noble/hashes/utils.js'
 import { base64 } from '@scure/base'
 import * as secp256k1 from 'tiny-secp256k1'
 import * as bitcoin from 'bitcoinjs-lib'

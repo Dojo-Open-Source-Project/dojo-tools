@@ -1,43 +1,41 @@
 {
-	"name": "@samouraiwallet/bitcoin-rpc",
-	"version": "0.6.0",
-	"engines": {
-		"node": ">=18"
-	},
-	"description": "A thin Bitcoin RPC client for Node.js.",
-	"keywords": ["bitcoin", "rpc", "client"],
-	"author": "Katana Cryptographic Ltd.",
-	"type": "module",
-	"main": "dist/index.js",
-	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		}
-	},
-	"types": "dist/index.d.ts",
-	"scripts": {
-		"test": "vitest run",
-		"test:watch": "vitest watch",
-		"test:coverage": "vitest run --coverage",
-		"format": "pnpm biome format --write src/",
-		"lint": "pnpm biome lint src/",
-		"lint:fix": "pnpm biome lint --write src/",
-		"typescript": "tsc --noEmit",
-		"build:clean": "rm -rf dist",
-		"build:esm": "tsc -p tsconfig.build.json",
-		"build": "pnpm run build:clean && pnpm run build:esm",
-		"prepack": "pnpm install && pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build"
-	},
-	"license": "LGPL-3.0",
-	"devDependencies": {
-		"@biomejs/biome": "1.9.3",
-		"@types/node": "^20.17.24",
-		"@vitest/coverage-v8": "^3.2.0",
-		"typescript": "^5.8.2",
-		"vitest": "^3.2.0"
-	},
-	"dependencies": {
-		"undici": "^6.21.1"
-	}
+  "name": "@dojo-tools/bitcoin-rpc",
+  "version": "0.6.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "description": "A thin Bitcoin RPC client for Node.js.",
+  "keywords": [
+    "bitcoin",
+    "rpc",
+    "client"
+  ],
+  "author": "Katana Cryptographic Ltd.",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "format": "pnpm exec biome format --write src test",
+    "lint": "pnpm exec biome lint src test",
+    "lint:fix": "pnpm exec biome lint --write src test",
+    "typescript": "tsc --noEmit",
+    "build:clean": "rm -rf dist",
+    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
+    "prepack": "pnpm install && pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null"
+  },
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "undici": "^8.1.0"
+  }
 }

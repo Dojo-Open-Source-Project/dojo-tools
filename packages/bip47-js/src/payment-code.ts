@@ -1,5 +1,5 @@
 import {BIP32API, BIP32Factory, BIP32Interface} from 'bip32';
-import {sha256} from '@noble/hashes/sha2';
+import {sha256} from '@noble/hashes/sha2.js';
 
 import * as utils from './utils.js';
 import type {Network, TinySecp256k1Interface, AddressType} from './types.js';

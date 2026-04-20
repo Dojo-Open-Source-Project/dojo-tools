@@ -19,7 +19,7 @@
   "scripts": {
     "typescript": "tsc --noEmit",
     "build:clean": "rm -rf dist",
-    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
+    "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && chmod +x ./dist/bin.js",
     "prepack": "pnpm install && pnpm -w run lint && pnpm run typescript && pnpm run build",
     "lint": "pnpm exec biome lint src",
@@ -38,9 +38,9 @@
   "homepage": "https://github.com/Dojo-Open-Source-Project-tools/next-block-estimator/tree/master/packages/estimator-cli",
   "dependencies": {
     "@dojo-tools/next-block-estimator": "workspace:*",
-    "yargs": "^18.0.0"
+    "yargs": "catalog:"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.34"
+    "@types/yargs": "catalog:"
   }
 }

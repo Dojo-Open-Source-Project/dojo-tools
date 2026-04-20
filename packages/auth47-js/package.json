@@ -27,7 +27,7 @@
     "typescript": "tsc --noEmit",
     "lint": "pnpm exec biome lint src test",
     "build:clean": "rm -rf dist",
-    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
+    "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
     "prepack": "npm run lint && npm run typescript && npm run test && npm run build",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null",
@@ -49,6 +49,6 @@
     "@dojo-tools/bitcoinjs-message": "workspace:*"
   },
   "devDependencies": {
-    "tiny-secp256k1": "^2.2.3"
+    "tiny-secp256k1": "catalog:"
   }
 }

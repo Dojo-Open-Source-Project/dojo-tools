@@ -17,18 +17,18 @@
     "pretty": "pnpm exec biome format --write src",
     "types": "tsc --noEmit",
     "build:clean": "rm -rf ./dist",
-    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
+    "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && chmod +x ./dist/bin.js",
     "prepack": "pnpm install && pnpm run lint && pnpm run types && pnpm run build"
   },
   "dependencies": {
     "@dojo-tools/boltzmann": "workspace:*",
     "socks": "^2.8.5",
-    "undici": "^8.1.0",
-    "yargs": "^18.0.0"
+    "undici": "catalog:",
+    "yargs": "catalog:"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.32"
+    "@types/yargs": "catalog:"
   },
   "repository": {
     "type": "git",

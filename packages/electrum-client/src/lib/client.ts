@@ -56,7 +56,7 @@ export abstract class Client {
 	protected initSocket(): void {
 		this.conn =
 			this.protocol === "tls" || this.protocol === "ssl"
-				? // @ts-expect-error
+				? // @ts-expect-error legacy ctor pattern used by reconnect flow
 					new tls.TLSSocket(null, { rejectUnauthorized: false })
 				: new net.Socket();
 		this.conn.setTimeout(TIMEOUT);

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
+    "lib": ["ES2022", "DOM"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "declaration": true,
@@ -11,16 +12,16 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
+    "types": ["node"],
     "paths": {
-      "@dojo-tools/auth47": ["packages/auth47-js/src/index.ts"],
-      "@dojo-tools/bip47": ["packages/bip47-js/src/index.ts"],
-      "@dojo-tools/bip47/utils": ["packages/bip47-js/src/utils.ts"],
-      "@dojo-tools/bitcoin-rpc": ["packages/bitcoin-rpc/src/index.ts"],
-      "@dojo-tools/bitcoinjs-message": ["packages/bitcoinjs-message/src/index.ts"],
-      "@dojo-tools/boltzmann": ["packages/boltzmann/src/boltzmann.ts"],
-      "@dojo-tools/electrum-client": ["packages/electrum-client/src/index.ts"],
-      "@dojo-tools/next-block-estimator": ["packages/next-block-estimator/src/index.ts"]
+      "@dojo-tools/auth47": ["./packages/auth47-js/src/index.ts"],
+      "@dojo-tools/bip47": ["./packages/bip47-js/src/index.ts"],
+      "@dojo-tools/bip47/utils": ["./packages/bip47-js/src/utils.ts"],
+      "@dojo-tools/bitcoin-rpc": ["./packages/bitcoin-rpc/src/index.ts"],
+      "@dojo-tools/bitcoinjs-message": ["./packages/bitcoinjs-message/src/index.ts"],
+      "@dojo-tools/boltzmann": ["./packages/boltzmann/src/boltzmann.ts"],
+      "@dojo-tools/electrum-client": ["./packages/electrum-client/src/index.ts"],
+      "@dojo-tools/next-block-estimator": ["./packages/next-block-estimator/src/index.ts"]
     },
     "forceConsistentCasingInFileNames": true
   }

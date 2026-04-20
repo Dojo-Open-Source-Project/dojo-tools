@@ -2,11 +2,7 @@
   "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
   "files": {
     "includes": [
-      "packages/**",
-      "!**/node_modules/**",
-      "!**/dist/**",
-      "!**/coverage/**",
-      "!**/docs/**"
+      "packages/**"
     ]
   },
   "formatter": {

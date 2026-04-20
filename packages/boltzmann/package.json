@@ -24,7 +24,7 @@
     "pretty": "pnpm exec biome format --write src test",
     "types": "tsc --noEmit",
     "build:clean": "rm -rf ./dist",
-    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2022 --sourcemap --outdir=dist",
+    "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2022 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
     "prepack": "pnpm install && pnpm run lint && pnpm run types && pnpm run test && pnpm run build",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null"

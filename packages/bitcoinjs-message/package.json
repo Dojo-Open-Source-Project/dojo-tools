@@ -31,21 +31,21 @@
     "lint": "pnpm exec biome lint src test",
     "lint:fix": "pnpm exec biome lint --write src test",
     "build:clean": "rm -rf dist",
-    "build:esm": "pnpm exec esbuild $(find src -name '*.ts' | sort) --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
+    "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
     "prepack": "pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null",
     "format": "pnpm exec biome format --write src test"
   },
   "dependencies": {
-    "@noble/hashes": "^2.2.0",
-    "@scure/base": "^2.0.0",
+    "@noble/hashes": "catalog:",
+    "@scure/base": "catalog:",
     "varuint-bitcoin": "^2.0.0"
   },
   "devDependencies": {
     "bitcoinjs-lib": "^7.0.1",
     "ecpair": "^3.0.0",
-    "tiny-secp256k1": "^2.2.3"
+    "tiny-secp256k1": "catalog:"
   },
   "engines": {
     "node": ">=16.6.0"

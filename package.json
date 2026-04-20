@@ -13,10 +13,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.6",
-    "@types/node": "^20.19.4",
-    "@vitest/coverage-v8": "^3.2.4",
-    "esbuild": "^0.25.0",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "@types/node": "^22.19.17",
+    "@vitest/coverage-v8": "^4.1.4",
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.4"
   }
 }

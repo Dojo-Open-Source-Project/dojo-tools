@@ -1,10 +1,14 @@
 src/
 test/
 coverage/
+docs/
+examples/
 .vscode/
 .idea/
-.gitignore
+node_modules/
+.github/
 biome.json
 vitest.config.ts
-
-tsconfig*
+tsconfig*.json
+*.tsbuildinfo
+*.map

@@ -1,5 +1,5 @@
 import {Auth47Verifier} from '../src/index.js';
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as ecc from 'tiny-secp256k1';
 

@@ -42,11 +42,11 @@ importers:
         specifier: ^4.1.4
         version: 4.1.4(@types/node@24.12.2)(@vitest/coverage-v8@4.1.4)(vite@7.3.2(@types/node@24.12.2)(yaml@2.8.3))
 
-  packages/auth47-js:
+  packages/auth47:
     dependencies:
       '@dojo-tools/bip47':
         specifier: workspace:*
-        version: link:../bip47-js
+        version: link:../bip47
       '@dojo-tools/bitcoinjs-message':
         specifier: workspace:*
         version: link:../bitcoinjs-message
@@ -55,7 +55,7 @@ importers:
         specifier: 'catalog:'
         version: 2.2.4
 
-  packages/bip47-js:
+  packages/bip47:
     dependencies:
       '@noble/hashes':
         specifier: 'catalog:'

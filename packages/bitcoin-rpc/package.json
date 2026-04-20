@@ -12,7 +12,6 @@
   ],
   "author": "Katana Cryptographic Ltd.",
   "type": "module",
-  "main": "dist/index.js",
   "exports": {
     ".": {
       "import": "./dist/index.js",

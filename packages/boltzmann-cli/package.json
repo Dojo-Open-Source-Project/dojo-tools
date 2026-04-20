@@ -15,6 +15,7 @@
     "lint": "pnpm exec biome lint src",
     "lint:fix": "pnpm exec biome lint --write src",
     "pretty": "pnpm exec biome format --write src",
+    "check": "pnpm exec biome check --write src",
     "types": "tsc --noEmit",
     "build:clean": "rm -rf ./dist",
     "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",

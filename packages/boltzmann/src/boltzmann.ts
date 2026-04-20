@@ -1,82 +1,82 @@
 import {
-	BoltzmannResult,
-	type BoltzmannResultJson,
+  BoltzmannResult,
+  type BoltzmannResultJson,
 } from "./beans/boltzmann-result.js";
 import {
-	type BoltzmannOptions,
-	type BoltzmannSettings,
-	type LinkerOptions,
-	createBoltzmannSettings,
+  type BoltzmannOptions,
+  type BoltzmannSettings,
+  createBoltzmannSettings,
+  type LinkerOptions,
 } from "./beans/boltzmann-settings.js";
 import { TxProcessor } from "./processor/tx-processor.js";
 import { CustomMap, Logger } from "./utils/utils.js";
 
-export { TooManyTxosError, TimeoutError } from "./utils/utils.js";
+export { TimeoutError, TooManyTxosError } from "./utils/utils.js";
 
 export type {
-	BoltzmannOptions,
-	LinkerOptions,
-	TxosInput,
-	BoltzmannResult,
-	BoltzmannResultJson,
+  BoltzmannOptions,
+  BoltzmannResult,
+  BoltzmannResultJson,
+  LinkerOptions,
+  TxosInput,
 };
 
 type TxosInput = { inputs: [string, number][]; outputs: [string, number][] };
 
 export class Boltzmann {
-	private readonly Logger: Logger;
-	private readonly settings: BoltzmannSettings;
-	private readonly txProcessor: TxProcessor;
+  private readonly Logger: Logger;
+  private readonly settings: BoltzmannSettings;
+  private readonly txProcessor: TxProcessor;
 
-	constructor(options?: BoltzmannOptions) {
-		this.settings = createBoltzmannSettings(options);
-		this.Logger = Logger(this.settings.logLevel);
-		this.txProcessor = new TxProcessor(
-			this.settings.maxDuration,
-			this.settings.maxTxos,
-			this.Logger,
-		);
-	}
+  constructor(options?: BoltzmannOptions) {
+    this.settings = createBoltzmannSettings(options);
+    this.Logger = Logger(this.settings.logLevel);
+    this.txProcessor = new TxProcessor(
+      this.settings.maxDuration,
+      this.settings.maxTxos,
+      this.Logger,
+    );
+  }
 
-	/**
-	 * @param txos
-	 * @throws {TooManyTxosError | TimeoutError}
-	 */
-	public process(txos: TxosInput): BoltzmannResult {
-		return this.processWithOptions(
-			txos,
-			this.settings.maxCjIntrafeesRatio,
-			this.settings.linkerOptions,
-		);
-	}
+  /**
+   * @param txos
+   * @throws {TooManyTxosError | TimeoutError}
+   */
+  public process(txos: TxosInput): BoltzmannResult {
+    return this.processWithOptions(
+      txos,
+      this.settings.maxCjIntrafeesRatio,
+      this.settings.linkerOptions,
+    );
+  }
 
-	/**
-	 * @param txos
-	 * @param maxCjIntrafeesRatio
-	 * @param linkerOptions
-	 * @throws {TooManyTxosError | TimeoutError}
-	 */
-	public processWithOptions(
-		txos: TxosInput,
-		maxCjIntrafeesRatio: number,
-		linkerOptions: LinkerOptions,
-	): BoltzmannResult {
-		const t1 = Date.now();
+  /**
+   * @param txos
+   * @param maxCjIntrafeesRatio
+   * @param linkerOptions
+   * @throws {TooManyTxosError | TimeoutError}
+   */
+  public processWithOptions(
+    txos: TxosInput,
+    maxCjIntrafeesRatio: number,
+    linkerOptions: LinkerOptions,
+  ): BoltzmannResult {
+    const t1 = Date.now();
 
-		this.Logger.logDebug("SETTINGS: ", JSON.stringify(this.settings));
+    this.Logger.logDebug("SETTINGS: ", JSON.stringify(this.settings));
 
-		const txosObject = {
-			inputs: new CustomMap(txos.inputs),
-			outputs: new CustomMap(txos.outputs),
-		};
+    const txosObject = {
+      inputs: new CustomMap(txos.inputs),
+      outputs: new CustomMap(txos.outputs),
+    };
 
-		const txProcessorResult = this.txProcessor.processTx(
-			txosObject,
-			maxCjIntrafeesRatio,
-			linkerOptions,
-		);
+    const txProcessorResult = this.txProcessor.processTx(
+      txosObject,
+      maxCjIntrafeesRatio,
+      linkerOptions,
+    );
 
-		const duration = (Date.now() - t1) / 1000;
-		return new BoltzmannResult(duration, txProcessorResult);
-	}
+    const duration = (Date.now() - t1) / 1000;
+    return new BoltzmannResult(duration, txProcessorResult);
+  }
 }

@@ -24,7 +24,8 @@
     "prepack": "pnpm install && pnpm -w run lint && pnpm run typescript && pnpm run build",
     "lint": "pnpm exec biome lint src",
     "lint:fix": "pnpm exec biome lint --write src",
-    "format": "pnpm exec biome format --write src"
+    "format": "pnpm exec biome format --write src",
+    "check": "pnpm exec biome check --write src"
   },
   "repository": {
     "type": "git",

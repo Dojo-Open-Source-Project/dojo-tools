@@ -1,62 +1,55 @@
 {
-  "name": "@dojo-tools/bip47",
-  "version": "1.1.0",
-  "engines": {
-    "node": ">=24"
-  },
-  "description": "A set of utilities for working with BIP47 and bitcoinjs-lib",
+  "name": "@dojo-tools/auth47",
+  "version": "1.2.1",
+  "description": "A JS implementation of the Auth47 protocol",
   "keywords": [
     "bitcoin",
-    "bitcoinjs",
-    "bitcoinjs-lib",
     "bip47",
     "bip-47",
+    "auth47",
+    "auth-47",
     "paynym"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./utils": {
-      "import": "./dist/utils.js",
-      "types": "./dist/utils.d.ts"
     }
   },
-  "sideEffects": false,
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage",
+    "coverage": "vitest run --coverage",
     "typescript": "tsc --noEmit",
     "lint": "pnpm exec biome lint src test",
-    "docs": "typedoc src/*.ts",
     "build:clean": "rm -rf dist",
     "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2020 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
     "prepack": "pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null",
     "lint:fix": "pnpm exec biome lint --write src test",
-    "format": "pnpm exec biome format --write src test"
+    "format": "pnpm exec biome format --write src test",
+    "check": "pnpm exec biome check --write src test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/bip47.git"
+    "url": "https://github.com/Dojo-Open-Source-Project/auth47.git"
   },
   "bugs": {
-    "url": "https://github.com/Dojo-Open-Source-Project/bip47/issues"
+    "url": "https://github.com/Dojo-Open-Source-Project/auth47/issues"
   },
   "author": "Katana Cryptographic Ltd.",
   "license": "LGPL-3.0",
-  "homepage": "https://github.com/Dojo-Open-Source-Project/bip47",
+  "homepage": "https://github.com/Dojo-Open-Source-Project/auth47",
   "dependencies": {
-    "@noble/hashes": "catalog:",
-    "@scure/base": "catalog:",
-    "bip32": "5.0.1"
+    "@dojo-tools/bip47": "workspace:*",
+    "@dojo-tools/bitcoinjs-message": "workspace:*"
   },
   "devDependencies": {
-    "tiny-secp256k1": "catalog:",
-    "typedoc": "^0.28.5"
+    "tiny-secp256k1": "catalog:"
   }
 }

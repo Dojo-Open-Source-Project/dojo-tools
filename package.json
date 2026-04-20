@@ -8,6 +8,7 @@
     "build": "pnpm -r --if-present run build",
     "test": "pnpm -r --if-present run test",
     "lint": "pnpm -r --if-present run lint",
+    "check": "pnpm -r --if-present run check",
     "typecheck": "pnpm -r --if-present run typescript",
     "clean": "pnpm -r --if-present run build:clean"
   },

@@ -28,7 +28,8 @@
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null",
     "lint": "pnpm exec biome lint src test",
     "lint:fix": "pnpm exec biome lint --write src test",
-    "format": "pnpm exec biome format --write src test"
+    "format": "pnpm exec biome format --write src test",
+    "check": "pnpm exec biome check --write src test"
   },
   "repository": {
     "type": "git",

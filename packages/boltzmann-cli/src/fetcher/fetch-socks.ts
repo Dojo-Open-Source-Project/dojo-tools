@@ -1,5 +1,6 @@
 import { SocksClient, type SocksProxy } from "socks";
 import { Agent, buildConnector } from "undici";
+
 import Connector = buildConnector.connector;
 import TLSOptions = buildConnector.BuildOptions;
 
@@ -12,7 +13,7 @@ export type SocksProxies = SocksProxy | SocksProxy[];
  * @param port A string containing the port number of the URL, maybe empty.
  */
 function resolvePort(protocol: string, port: string) {
-	return port ? Number.parseInt(port) : protocol === "http:" ? 80 : 443;
+  return port ? Number.parseInt(port, 10) : protocol === "http:" ? 80 : 443;
 }
 
 /**
@@ -24,69 +25,69 @@ function resolvePort(protocol: string, port: string) {
  * @param tlsOpts TLS upgrade options.
  */
 export function socksConnector(
-	proxies: SocksProxies,
-	tlsOpts: TLSOptions = {},
+  proxies: SocksProxies,
+  tlsOpts: TLSOptions = {},
 ): Connector {
-	const chain = Array.isArray(proxies) ? proxies : [proxies];
-	const { timeout = 1e4 } = tlsOpts;
-	const undiciConnect = buildConnector(tlsOpts);
+  const chain = Array.isArray(proxies) ? proxies : [proxies];
+  const { timeout = 1e4 } = tlsOpts;
+  const undiciConnect = buildConnector(tlsOpts);
 
-	return async (options, callback) => {
-		let { protocol, hostname, port, httpSocket } = options;
+  return async (options, callback) => {
+    let { protocol, hostname, port, httpSocket } = options;
 
-		for (let i = 0; i < chain.length; i++) {
-			const next = chain[i + 1];
+    for (let i = 0; i < chain.length; i++) {
+      const next = chain[i + 1];
 
-			const destination =
-				i === chain.length - 1
-					? {
-							host: hostname,
-							port: resolvePort(protocol, port),
-						}
-					: {
-							port: next.port,
-							host: next.host ?? next.ipaddress!,
-						};
+      const destination =
+        i === chain.length - 1
+          ? {
+              host: hostname,
+              port: resolvePort(protocol, port),
+            }
+          : {
+              port: next.port,
+              host: next.host ?? next.ipaddress!,
+            };
 
-			const socksOpts = {
-				command: "connect" as const,
-				proxy: chain[i],
-				timeout,
-				destination,
-				existing_socket: httpSocket,
-			};
+      const socksOpts = {
+        command: "connect" as const,
+        proxy: chain[i],
+        timeout,
+        destination,
+        existing_socket: httpSocket,
+      };
 
-			try {
-				const r = await SocksClient.createConnection(socksOpts);
-				httpSocket = r.socket;
-			} catch (error) {
-				return callback(error as Error, null);
-			}
-		}
+      try {
+        const r = await SocksClient.createConnection(socksOpts);
+        httpSocket = r.socket;
+      } catch (error) {
+        return callback(error as Error, null);
+      }
+    }
 
-		// httpSocket may not exist when the chain is empty.
-		if (httpSocket && protocol !== "https:") {
-			return callback(null, httpSocket.setNoDelay());
-		}
+    // httpSocket may not exist when the chain is empty.
+    if (httpSocket && protocol !== "https:") {
+      return callback(null, httpSocket.setNoDelay());
+    }
 
-		/*
-		 * There are 2 cases here:
-		 * If httpSocket doesn't exist, let Undici make a connection.
-		 * If httpSocket exists & protocol is HTTPS, do TLS upgrade.
-		 */
-		return undiciConnect({ ...options, httpSocket }, callback);
-	};
+    /*
+     * There are 2 cases here:
+     * If httpSocket doesn't exist, let Undici make a connection.
+     * If httpSocket exists & protocol is HTTPS, do TLS upgrade.
+     */
+    return undiciConnect({ ...options, httpSocket }, callback);
+  };
 }
 
 export interface SocksDispatcherOptions extends Agent.Options {
-	/**
-	 * TLS upgrade options, see:
-	 * https://undici.nodejs.org/#/docs/api/Client?id=parameter-connectoptions
-	 *
-	 * The connect function is not supported.
-	 * If you want to create a custom connector, you can use `socksConnector`.
-	 */
-	connect?: TLSOptions;
+  /**
+   * TLS upgrade options, see:
+   * https://undici.nodejs.org/#/docs/api/Client?id=parameter-connectoptions
+   *
+   * The connect function is not supported.
+   * If you want to create a custom connector, you can use `socksConnector`.
+   */
+  connect?: TLSOptions;
 }
 
 /**
@@ -98,9 +99,9 @@ export interface SocksDispatcherOptions extends Agent.Options {
  * @param options Additional options passed to the Agent constructor.
  */
 export function socksDispatcher(
-	proxies: SocksProxies,
-	options: SocksDispatcherOptions = {},
+  proxies: SocksProxies,
+  options: SocksDispatcherOptions = {},
 ) {
-	const { connect, ...rest } = options;
-	return new Agent({ ...rest, connect: socksConnector(proxies, connect) });
+  const { connect, ...rest } = options;
+  return new Agent({ ...rest, connect: socksConnector(proxies, connect) });
 }

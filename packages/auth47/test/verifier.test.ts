@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as ecc from "tiny-secp256k1";
 import { afterAll, assert, beforeAll, describe, it, vi } from "vitest";
 import { Auth47Verifier, type VerifyResult } from "../src/index.js";
@@ -36,9 +35,8 @@ describe("Auth47Verifier", () => {
     it("should throw on invalid bitcoin network", () => {
       const verifier = new Auth47Verifier(ecc, "https://test.com/callback");
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       assert.throws(() =>
+        // @ts-expect-error
         verifier.verifyProof(VALID_AUTH47_PROOFS[0], "incorrect"),
       );
     });
@@ -78,9 +76,8 @@ describe("Auth47Verifier", () => {
           expires: new Date(-1),
         }),
       );
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       assert.throws(() =>
+        // @ts-expect-error
         verifier.generateURI({ nonce: "skdvbdhsv43653", expires: "2364365" }),
       );
     });
@@ -88,17 +85,15 @@ describe("Auth47Verifier", () => {
     it("should throw error on invalid resource", () => {
       const verifier = new Auth47Verifier(ecc, "https://samourai.io/callback");
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       assert.throws(() =>
+        // @ts-expect-error
         verifier.generateURI({ nonce: "skdvbdhsv43653", resource: Number.NaN }),
       );
       assert.throws(() =>
         verifier.generateURI({ nonce: "skdvbdhsv43653", resource: "" }),
       );
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       assert.throws(() =>
+        // @ts-expect-error
         verifier.generateURI({ nonce: "skdvbdhsv43653", resource: 2364365 }),
       );
     });

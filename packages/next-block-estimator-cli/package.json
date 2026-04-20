@@ -14,7 +14,7 @@
   ],
   "type": "module",
   "bin": {
-    "next-block-estimator": "./dist/bin.js"
+    "next-block-estimator": "dist/bin.js"
   },
   "scripts": {
     "typescript": "tsc --noEmit",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
+    "url": "git+https://github.com/Dojo-Open-Source-Project/dojo-tools.git"
   },
   "bugs": {
     "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools/issues"

@@ -1,8 +1,6 @@
-/* eslint-disable max-len */
-
 import * as ecc from "tiny-secp256k1";
 import { assert, describe, it } from "vitest";
-import { BIP47Factory } from "../src/index.js";
+import { BIP47Factory } from "../src";
 import { PaymentCodePrivate, PaymentCodePublic } from "../src/payment-code.js";
 import { bs58check, bytesToHex, hexToBytes, networks } from "../src/utils.js";
 
@@ -381,8 +379,8 @@ describe("PaymentCode", () => {
       const alicePcode = bip47.fromBase58(alice.pcBase58);
       const bobPcode = bip47.fromSeed(hexToBytes(bob.seed));
       for (let i = 0; i < 10; i++) {
-        // @ts-expect-error expect this beceuse we need to test this case
         assert.throws(
+          // @ts-expect-error expect this beceuse we need to test this case
           () => bobPcode.getPaymentAddress(alicePcode, i, "p2tr"),
           "Unknown address type",
         );

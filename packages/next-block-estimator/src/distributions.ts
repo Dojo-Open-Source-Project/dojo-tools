@@ -42,7 +42,6 @@ export const getBundlesDistrib = (txs: Tx[]): Map<number, number> => {
 
     if (bundle.size > 1) {
       for (const [k, b] of d_bundles.entries()) {
-        // eslint-disable-next-line no-loop-func
         const intersection = new Set([...b].filter((x) => bundle.has(x)));
         if (intersection.size > 0) {
           bundle = new Set([...bundle.values(), ...b.values()]);

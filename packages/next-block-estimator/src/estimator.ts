@@ -9,7 +9,6 @@ interface Events extends EventMap {
 
 export type Options = FeeEstimatorOptions & { useWorker?: boolean };
 
-// eslint-disable-next-line unicorn/prefer-event-target
 export class FeeEstimator extends TypedEventEmitter<Events> {
   private readonly estimator: Worker | MessagePort;
   private _data: Result;

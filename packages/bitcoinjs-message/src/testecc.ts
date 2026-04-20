@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { hexToBytes } from "@noble/hashes/utils.js";
 import { areUint8ArraysEqual } from "./utils.js";
 

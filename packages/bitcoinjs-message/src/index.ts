@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions, @typescript-eslint/explicit-function-return-type */
-
 import { ripemd160 } from "@noble/hashes/legacy.js";
 import { sha256 } from "@noble/hashes/sha2.js";
 import {
@@ -152,7 +150,6 @@ function prepareSign(
     segwitType !== SEGWIT_TYPES.P2SH_P2WPKH &&
     segwitType !== SEGWIT_TYPES.P2WPKH
   ) {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     throw new Error(
       `Unrecognized segwitType: use "${SEGWIT_TYPES.P2SH_P2WPKH}" or "${SEGWIT_TYPES.P2WPKH}"`,
     );

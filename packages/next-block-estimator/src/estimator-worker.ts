@@ -41,7 +41,6 @@ const initialFees: FeeRates = {
  * required for the confirmation of a transaction
  * by the next block
  */
-// eslint-disable-next-line complexity
 const estimateFee = async function* (
   options: FeeEstimatorOptions,
   abortSignal: AbortSignal,

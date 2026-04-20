@@ -21,7 +21,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
+    "url": "git+https://github.com/Dojo-Open-Source-Project/dojo-tools.git"
   },
   "scripts": {
     "test": "vitest run",

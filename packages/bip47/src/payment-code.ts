@@ -83,7 +83,6 @@ export class PaymentCodePublic {
    * @returns {PaymentCodePublic} A new PaymentCode class instance that is a clone of the current one.
    */
   clone(): PaymentCodePublic {
-    /* eslint-disable-next-line unicorn/prefer-spread */
     return new PaymentCodePublic(
       this.ecc,
       this.bip32,
@@ -318,7 +317,6 @@ export class PaymentCodePrivate extends PaymentCodePublic {
    * @returns {PaymentCodePrivate} A new PaymentCode class instance that is a clone of the current one.
    */
   clone(): PaymentCodePrivate {
-    /* eslint-disable-next-line unicorn/prefer-spread */
     return new PaymentCodePrivate(
       this.root,
       this.ecc,
@@ -442,7 +440,6 @@ export class PaymentCodePrivate extends PaymentCodePublic {
   getNotificationPrivateKey(): Uint8Array {
     const child = this.derive(0);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return child.privateKey!;
   }
 

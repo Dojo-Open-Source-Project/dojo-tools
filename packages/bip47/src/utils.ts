@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-hex-escape, unicorn/number-literal-case */
-
 import { hmac } from "@noble/hashes/hmac.js";
 import { ripemd160 } from "@noble/hashes/legacy.js";
 import { sha256, sha512 } from "@noble/hashes/sha2.js";
@@ -64,7 +62,6 @@ export function xorUint8Arrays(a: Uint8Array, b: Uint8Array): Uint8Array {
 
   const result = new Uint8Array(a.length);
 
-  // eslint-disable-next-line unicorn/no-for-loop
   for (let i = 0; i < a.length; i++) {
     result[i] = a[i] ^ b[i];
   }

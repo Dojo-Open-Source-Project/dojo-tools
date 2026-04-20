@@ -63,19 +63,18 @@ describe("createCallbackUri", () => {
 
 describe("validateGenerateUriArgs", () => {
   it("should throw for non-object args", () => {
-    // @ts-expect-error - Testing invalid input
     assert.throws(
+      // @ts-expect-error - Testing invalid input
       () => validateGenerateUriArgs("not-an-object"),
       "Invalid generate URI args",
     );
-    // @ts-expect-error - Testing invalid input
     assert.throws(
+      // @ts-expect-error - Testing invalid input
       () => validateGenerateUriArgs(null),
       "Invalid generate URI args",
     );
-    // @ts-expect-error - Testing invalid input
-    // eslint-disable-next-line unicorn/no-useless-undefined
     assert.throws(
+      // @ts-expect-error - Testing invalid input
       () => validateGenerateUriArgs(undefined),
       "Invalid generate URI args",
     );
@@ -100,8 +99,8 @@ describe("validateGenerateUriArgs", () => {
       () => validateGenerateUriArgs({ nonce: "validnonce", resource: "" }),
       '"resource": invalid, expected string',
     );
-    // @ts-expect-error - Testing invalid input
     assert.throws(
+      // @ts-expect-error - Testing invalid input
       () => validateGenerateUriArgs({ nonce: "validnonce", resource: 123 }),
       '"resource": invalid, expected string',
     );
@@ -124,9 +123,9 @@ describe("validateGenerateUriArgs", () => {
       '"expires": invalid, expected future date',
     );
 
-    // @ts-expect-error - Testing invalid input
     assert.throws(
       () =>
+        // @ts-expect-error - Testing invalid input
         validateGenerateUriArgs({ nonce: "validnonce", expires: "not-a-date" }),
       '"expires": invalid, expected number or Date',
     );
@@ -178,7 +177,6 @@ describe("validateChallenge", () => {
       () => validateChallenge(null),
       '"challenge": invalid, expected string',
     );
-    // eslint-disable-next-line unicorn/no-useless-undefined
     assert.throws(
       () => validateChallenge(undefined),
       '"challenge": invalid, expected string',
@@ -197,7 +195,6 @@ describe("validateProof", () => {
   it("should throw for non-object proofs", () => {
     assert.throws(() => validateProof("not-an-object"), "Invalid proof");
     assert.throws(() => validateProof(null), "Invalid proof");
-    // eslint-disable-next-line unicorn/no-useless-undefined
     assert.throws(() => validateProof(undefined), "Invalid proof");
   });
 

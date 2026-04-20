@@ -6,11 +6,11 @@ export default defineConfig({
         alias: [
             {
                 find: /^@dojo-tools\/bip47\/utils$/,
-                replacement: fileURLToPath(new URL('../bip47-js/src/utils.ts', import.meta.url)),
+                replacement: fileURLToPath(new URL('../bip47/src/utils.ts', import.meta.url)),
             },
             {
                 find: /^@dojo-tools\/bip47$/,
-                replacement: fileURLToPath(new URL('../bip47-js/src/index.ts', import.meta.url)),
+                replacement: fileURLToPath(new URL('../bip47/src/index.ts', import.meta.url)),
             },
             {
                 find: /^@dojo-tools\/bitcoinjs-message$/,

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/explicit-function-return-type */
-
 import { bytesToHex } from "@noble/hashes/utils.js";
 import { base64 } from "@scure/base";
 import * as bitcoin from "bitcoinjs-lib";
@@ -305,7 +303,6 @@ test("Check that Buffers and wrapped Strings are accepted", () => {
   );
   const privateKey = keyPair.privateKey!;
 
-  // eslint-disable-next-line no-new-wrappers
   const sig = message.sign(
     Buffer.from("Sign me", "utf8"),
     privateKey,

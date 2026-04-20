@@ -36,14 +36,14 @@ export const abortableDelay = (ms: number, abortSignal: AbortSignal) => {
 
 export const createDebugLog =
   (debug?: boolean) =>
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: debug log
   (...data: any[]) => {
     if (debug) {
       console.log("DEBUG:", ...data);
     }
   };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: object keys
 export const typedObjectKeys = <T extends Record<string | number, any>>(
   obj: T,
 ): (keyof T)[] => {

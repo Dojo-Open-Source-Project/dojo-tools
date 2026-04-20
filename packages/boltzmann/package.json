@@ -26,7 +26,7 @@
     "build:clean": "rm -rf ./dist",
     "build:esm": "pnpm exec esbuild \"src/**/*.ts\" --format=esm --platform=node --target=es2022 --sourcemap --outdir=dist",
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:types",
-    "prepack": "pnpm install && pnpm run lint && pnpm run types && pnpm run test && pnpm run build",
+    "prepack": "pnpm install && pnpm run lint && pnpm run typescript && pnpm run test && pnpm run build",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
+    "url": "git+https://github.com/Dojo-Open-Source-Project/dojo-tools.git"
   },
   "bugs": {
     "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools/issues"

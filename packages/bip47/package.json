@@ -43,14 +43,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/bip47.git"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
   },
   "bugs": {
-    "url": "https://github.com/Dojo-Open-Source-Project/bip47/issues"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools/issues"
   },
   "author": "Katana Cryptographic Ltd.",
   "license": "LGPL-3.0",
-  "homepage": "https://github.com/Dojo-Open-Source-Project/bip47",
+  "homepage": "https://github.com/Dojo-Open-Source-Project/dojo-tools",
   "dependencies": {
     "@noble/hashes": "catalog:",
     "@scure/base": "catalog:",

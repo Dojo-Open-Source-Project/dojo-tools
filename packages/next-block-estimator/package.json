@@ -35,14 +35,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project-tools/next-block-estimator.git"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
   },
   "bugs": {
-    "url": "https://github.com/Dojo-Open-Source-Project-tools/next-block-estimator/issues"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools/issues"
   },
   "author": "Katana Cryptographic Ltd.",
   "license": "LGPL-3.0",
-  "homepage": "https://github.com/Dojo-Open-Source-Project-tools/next-block-estimator/tree/master/packages/estimator",
+  "homepage": "https://github.com/Dojo-Open-Source-Project/dojo-tools",
   "dependencies": {
     "@dojo-tools/bitcoin-rpc": "workspace:*"
   }

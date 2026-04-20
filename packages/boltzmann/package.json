@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "author": "Katana Cryptographic Ltd.",
   "license": "LGPL-3.0",
-  "homepage": "https://github.com/Dojo-Open-Source-Project/boltzmann",
+  "homepage": "https://github.com/Dojo-Open-Source-Project/dojo-tools",
   "type": "module",
   "engines": {
     "node": ">=24"
@@ -37,9 +37,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/boltzmann.git"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
   },
   "bugs": {
-    "url": "https://github.com/Dojo-Open-Source-Project/boltzmann/issues"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools/issues"
   }
 }

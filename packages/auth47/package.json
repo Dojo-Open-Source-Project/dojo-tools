@@ -37,14 +37,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dojo-Open-Source-Project/auth47.git"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools"
   },
   "bugs": {
-    "url": "https://github.com/Dojo-Open-Source-Project/auth47/issues"
+    "url": "https://github.com/Dojo-Open-Source-Project/dojo-tools/issues"
   },
   "author": "Katana Cryptographic Ltd.",
   "license": "LGPL-3.0",
-  "homepage": "https://github.com/Dojo-Open-Source-Project/auth47",
+  "homepage": "https://github.com/Dojo-Open-Source-Project/dojo-tools",
   "dependencies": {
     "@dojo-tools/bip47": "workspace:*",
     "@dojo-tools/bitcoinjs-message": "workspace:*"

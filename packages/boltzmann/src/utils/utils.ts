@@ -236,22 +236,22 @@ export class CustomMap<K, V> implements Map<K, V> {
 		this.state = entries ? [...entries] : [];
 	}
 
-	[Symbol.iterator](): IterableIterator<[K, V]> {
-		return this.state[Symbol.iterator]();
+	[Symbol.iterator](): MapIterator<[K, V]> {
+		return this.state[Symbol.iterator]() as unknown as MapIterator<[K, V]>;
 	}
 
 	[Symbol.toStringTag] = "CustomMap";
 
-	entries(): IterableIterator<[K, V]> {
-		return this.state[Symbol.iterator]();
+	entries(): MapIterator<[K, V]> {
+		return this.state[Symbol.iterator]() as unknown as MapIterator<[K, V]>;
 	}
 
-	keys(): IterableIterator<K> {
-		return this.state.map(([k, _]) => k)[Symbol.iterator]();
+	keys(): MapIterator<K> {
+		return this.state.map(([k, _]) => k)[Symbol.iterator]() as unknown as MapIterator<K>;
 	}
 
-	values(): IterableIterator<V> {
-		return this.state.map(([_, v]) => v)[Symbol.iterator]();
+	values(): MapIterator<V> {
+		return this.state.map(([_, v]) => v)[Symbol.iterator]() as unknown as MapIterator<V>;
 	}
 
 	clear() {
@@ -268,11 +268,13 @@ export class CustomMap<K, V> implements Map<K, V> {
 	}
 
 	forEach(
-		callbackfn: (value: V, key: K, map: CustomMap<K, V>) => void,
+		callbackfn: (value: V, key: K, map: Map<K, V>) => void,
 		// biome-ignore lint/suspicious/noExplicitAny: ignore
 		thisArg?: any,
 	): void {
-		this.state.forEach(([k, v]) => callbackfn.call(thisArg, v, k, this));
+		this.state.forEach(([k, v]) =>
+			callbackfn.call(thisArg, v, k, this as unknown as Map<K, V>),
+		);
 	}
 
 	get(key: K): V | undefined {

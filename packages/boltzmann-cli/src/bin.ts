@@ -1,6 +1,6 @@
 #!/usr/bin/env node
+import { parseArgs } from "node:util";
 import { Boltzmann, type LinkerOptions } from "@dojo-tools/boltzmann";
-import yargs from "yargs";
 
 import { fetcher } from "./fetcher/api.js";
 
@@ -42,81 +42,117 @@ const linkabilityOptions = [
 	"MERGE_OUTPUTS",
 ] as const;
 
-const main = async () => {
-	const argv = await yargs(process.argv.slice(2), process.cwd())
-		.scriptName("boltzmann")
-		.usage("$0 [options]")
-		.option("maxDuration", {
-			alias: "m",
-			describe: "Max duration in seconds",
-			default: Number.POSITIVE_INFINITY,
-			number: true,
-		})
-		.option("maxTxos", {
-			alias: "x",
-			describe: "Max number of txos",
-			default: Number.POSITIVE_INFINITY,
-			number: true,
-		})
-		.option("intraFees", {
-			alias: "i",
-			describe: "Max infrafees ratio",
-			number: true,
-			default: 0.005,
-		})
-		.option("linkerOpts", {
-			alias: "l",
-			describe: "Linker options",
-			array: true,
-			choices: linkabilityOptions,
-		})
-		.option("txId", {
-			alias: "t",
-			describe: "Transaction ID",
-			string: true,
-			demandOption: true,
-		})
-		.option("api", {
-			alias: "a",
-			describe: "Source API",
-			choices: apiOptions,
-			demandOption: true,
-		})
-		.option("socks", {
-			alias: "s",
-			describe:
-				"Connection string to socks proxy. Must be of the form <host>:<port>",
-			string: true,
-			coerce: getHostPort,
-		})
-		.option("debug", {
-			describe: "Enable debug mode",
-			boolean: true,
-		})
-		.help()
-		.parse();
+const isLinkabilityOption = (
+	value: string,
+): value is (typeof linkabilityOptions)[number] => {
+	return (linkabilityOptions as readonly string[]).includes(value);
+};
 
-	// coerce doesn't work with array, so we need to manually parse the linker options
-	// https://github.com/yargs/yargs/issues/1379
-	const linkerOptions: LinkerOptions | undefined = argv.linkerOpts
+const printHelp = () => {
+	console.log(`Usage: boltzmann [options]
+
+Options:
+  -m, --maxDuration <number>  Max duration in seconds (default: Infinity)
+  -x, --maxTxos <number>      Max number of txos (default: Infinity)
+  -i, --intraFees <number>    Max intrafees ratio (default: 0.005)
+  -l, --linkerOpts <value>    Linker option (repeatable)
+                              Allowed: ${linkabilityOptions.join(", ")}
+  -t, --txId <string>         Transaction ID (required)
+  -a, --api <value>           Source API (required): ${apiOptions.join(", ")}
+  -s, --socks <host:port>     SOCKS proxy endpoint
+      --debug                 Enable debug mode
+  -h, --help                  Show help
+`);
+};
+
+const main = async () => {
+	const { values } = parseArgs({
+		args: process.argv.slice(2),
+		strict: true,
+		allowPositionals: false,
+		options: {
+			help: { type: "boolean", short: "h" },
+			debug: { type: "boolean" },
+			maxDuration: { type: "string", short: "m" },
+			maxTxos: { type: "string", short: "x" },
+			intraFees: { type: "string", short: "i" },
+			linkerOpts: { type: "string", short: "l", multiple: true },
+			txId: { type: "string", short: "t" },
+			api: { type: "string", short: "a" },
+			socks: { type: "string", short: "s" },
+		},
+	});
+
+	if (values.help) {
+		printHelp();
+		return;
+	}
+
+	if (values.txId == null) {
+		throw new Error("Missing required option: --txId");
+	}
+
+	if (values.api == null) {
+		throw new Error("Missing required option: --api");
+	}
+
+	if (!(apiOptions as readonly string[]).includes(values.api)) {
+		throw new Error(
+			`Invalid --api value: ${values.api}. Expected one of: ${apiOptions.join(", ")}`,
+		);
+	}
+
+	const maxDuration =
+		values.maxDuration == null
+			? Number.POSITIVE_INFINITY
+			: Number(values.maxDuration);
+	if (Number.isNaN(maxDuration)) {
+		throw new TypeError("Invalid --maxDuration value. Expected a number.");
+	}
+
+	const maxTxos =
+		values.maxTxos == null ? Number.POSITIVE_INFINITY : Number(values.maxTxos);
+	if (Number.isNaN(maxTxos)) {
+		throw new TypeError("Invalid --maxTxos value. Expected a number.");
+	}
+
+	const intraFees = values.intraFees == null ? 0.005 : Number(values.intraFees);
+	if (Number.isNaN(intraFees)) {
+		throw new TypeError("Invalid --intraFees value. Expected a number.");
+	}
+
+	const rawLinkerOpts = values.linkerOpts ?? [];
+	for (const value of rawLinkerOpts) {
+		if (!isLinkabilityOption(value)) {
+			throw new Error(
+				`Invalid --linkerOpts value: ${value}. Expected one of: ${linkabilityOptions.join(", ")}`,
+			);
+		}
+	}
+
+	const linkerOptions: LinkerOptions | undefined = rawLinkerOpts.length
 		? {
-				precheck: argv.linkerOpts.includes("PRECHECK"),
-				linkability: argv.linkerOpts.includes("LINKABILITY"),
-				mergeInputs: argv.linkerOpts.includes("MERGE_INPUTS"),
-				mergeOutputs: argv.linkerOpts.includes("MERGE_OUTPUTS"),
-				mergeFees: argv.linkerOpts.includes("MERGE_FEES"),
+				precheck: rawLinkerOpts.includes("PRECHECK"),
+				linkability: rawLinkerOpts.includes("LINKABILITY"),
+				mergeInputs: rawLinkerOpts.includes("MERGE_INPUTS"),
+				mergeOutputs: rawLinkerOpts.includes("MERGE_OUTPUTS"),
+				mergeFees: rawLinkerOpts.includes("MERGE_FEES"),
 			}
 		: undefined;
 
 	const boltzmann = new Boltzmann({
-		maxDuration: argv.maxDuration,
-		maxTxos: argv.maxTxos,
-		maxCjIntrafeesRatio: argv.intraFees,
+		maxDuration,
+		maxTxos,
+		maxCjIntrafeesRatio: intraFees,
 		linkerOptions: linkerOptions,
-		logLevel: argv.debug ? "DEBUG" : "INFO",
+		logLevel: values.debug ? "DEBUG" : "INFO",
 	});
 
-	const txos = await fetcher(argv.txId, argv.api, argv.socks);
+	const txos = await fetcher(
+		values.txId,
+		values.api as (typeof apiOptions)[number],
+		values.socks ? getHostPort(values.socks) : undefined,
+	);
 
 	return boltzmann.process(txos).print();
 };

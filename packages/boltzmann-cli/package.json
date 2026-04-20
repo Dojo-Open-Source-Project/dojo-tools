@@ -24,11 +24,7 @@
   "dependencies": {
     "@dojo-tools/boltzmann": "workspace:*",
     "socks": "^2.8.5",
-    "undici": "catalog:",
-    "yargs": "catalog:"
-  },
-  "devDependencies": {
-    "@types/yargs": "catalog:"
+    "undici": "catalog:"
   },
   "repository": {
     "type": "git",

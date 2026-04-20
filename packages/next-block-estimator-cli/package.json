@@ -37,10 +37,6 @@
   "license": "LGPL-3.0",
   "homepage": "https://github.com/Dojo-Open-Source-Project-tools/next-block-estimator/tree/master/packages/estimator-cli",
   "dependencies": {
-    "@dojo-tools/next-block-estimator": "workspace:*",
-    "yargs": "catalog:"
-  },
-  "devDependencies": {
-    "@types/yargs": "catalog:"
+    "@dojo-tools/next-block-estimator": "workspace:*"
   }
 }

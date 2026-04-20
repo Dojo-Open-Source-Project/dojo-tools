@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import path from "node:path";
-import yargs from "yargs";
+import { parseArgs } from "node:util";
 
 import {
 	FeeEstimator,
@@ -35,77 +35,89 @@ const getHostPort = (val: string): { host: string; port: number } => {
 	return { host, port };
 };
 
+const modeOptions = ["txs", "bundles"] as const;
+
+const printHelp = () => {
+	console.log(`Usage: next-block-estimator [options]
+
+Options:
+  -c, --connection <host:port>  bitcoind RPC endpoint (required)
+  -s, --secure                  Use HTTPS for RPC
+  -u, --username <string>       RPC username (requires --password, conflicts with --cookie)
+  -p, --password <string>       RPC password (requires --username, conflicts with --cookie)
+  -k, --cookie <path>           RPC cookie file path (conflicts with --username/--password)
+  -m, --mode <value>            Estimate mode: ${modeOptions.join(" | ")}
+  -r, --refresh <number>        Delay in seconds between estimates
+      --debug                   Enable debug mode
+  -h, --help                    Show help
+`);
+};
+
 const main = async () => {
-	const argv = await yargs(process.argv.slice(2), process.cwd())
-		.usage("$0 [options]")
-		.option("connection", {
-			alias: "c",
-			describe:
-				"Connection string to bitcoind RPC API. Must be of the form <host>:<port>",
-			string: true,
-			coerce: getHostPort,
-			demandOption: true,
-		})
-		.option("secure", {
-			alias: "s",
-			describe: "Use HTTPS to connect to bitcoind RPC API",
-			boolean: true,
-		})
-		.option("username", {
-			alias: "u",
-			describe: "Username used to access bitcoind RPC API",
-			string: true,
-			conflicts: "cookie",
-			implies: "password",
-		})
-		.option("password", {
-			alias: "p",
-			describe: "Password used to access bitcoind RPC API",
-			string: true,
-			conflicts: "cookie",
-			implies: "username",
-		})
-		.option("cookie", {
-			alias: "k",
-			describe: "Cookie file to access bitcoind RPC API",
-			string: true,
-			conflicts: ["username", "password"],
-			coerce: path.resolve,
-		})
-		.option("mode", {
-			alias: "m",
-			describe: "Mode used for the estimate (value = txs | bundles)",
-			choices: ["txs", "bundles"] as const,
-		})
-		.option("refresh", {
-			alias: "r",
-			describe: "Delay in seconds between 2 computations of the estimate",
-			number: true,
-		})
-		.option("debug", {
-			describe: "Enable debug mode",
-			boolean: true,
-		})
-		.help()
-		.parse();
+	const { values } = parseArgs({
+		args: process.argv.slice(2),
+		strict: true,
+		allowPositionals: false,
+		options: {
+			help: { type: "boolean", short: "h" },
+			debug: { type: "boolean" },
+			connection: { type: "string", short: "c" },
+			secure: { type: "boolean", short: "s" },
+			username: { type: "string", short: "u" },
+			password: { type: "string", short: "p" },
+			cookie: { type: "string", short: "k" },
+			mode: { type: "string", short: "m" },
+			refresh: { type: "string", short: "r" },
+		},
+	});
+
+	if (values.help) {
+		printHelp();
+		return;
+	}
+
+	if (values.connection == null) {
+		throw new Error("Missing required option: --connection");
+	}
+	const connection = getHostPort(values.connection);
+
+	if (values.cookie && (values.username || values.password)) {
+		throw new Error("--cookie conflicts with --username and --password");
+	}
+
+	if ((values.username && !values.password) || (!values.username && values.password)) {
+		throw new Error("--username and --password must be provided together");
+	}
+
+	if (values.mode && !(modeOptions as readonly string[]).includes(values.mode)) {
+		throw new Error(
+			`Invalid --mode value: ${values.mode}. Expected one of: ${modeOptions.join(", ")}`,
+		);
+	}
+
+	const refresh =
+		values.refresh == null ? undefined : Number(values.refresh);
+	if (values.refresh != null && Number.isNaN(refresh)) {
+		throw new TypeError("Invalid --refresh value. Expected a number.");
+	}
 
 	const rpcOptions = ((): Options["rpcOptions"] => {
-		if (argv.cookie) {
+		if (values.cookie) {
 			return {
-				host: argv.connection.host,
-				port: argv.connection.port,
-				protocol: argv.secure ? "https" : "http",
-				cookie: argv.cookie,
+				host: connection.host,
+				port: connection.port,
+				protocol: values.secure ? "https" : "http",
+				cookie: path.resolve(values.cookie),
 			};
 		}
 
-		if (argv.username && argv.password) {
+		if (values.username && values.password) {
 			return {
-				host: argv.connection.host,
-				port: argv.connection.port,
-				protocol: argv.secure ? "https" : "http",
-				username: argv.username,
-				password: argv.password,
+				host: connection.host,
+				port: connection.port,
+				protocol: values.secure ? "https" : "http",
+				username: values.username,
+				password: values.password,
 			};
 		}
 
@@ -115,10 +127,10 @@ const main = async () => {
 	})();
 
 	const estimator = new FeeEstimator({
-		mode: argv.mode,
-		refresh: argv.refresh,
+		mode: values.mode as Options["mode"],
+		refresh,
 		rpcOptions: rpcOptions,
-		debug: argv.debug,
+		debug: values.debug,
 	});
 
 	estimator.on("data", (data) => {

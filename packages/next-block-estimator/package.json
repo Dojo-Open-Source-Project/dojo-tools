@@ -2,7 +2,7 @@
   "name": "@dojo-tools/next-block-estimator",
   "version": "0.10.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "description": "A script estimating the minimum feerate required for the inclusion of a bitcoin transaction into the next block.",
   "keywords": [

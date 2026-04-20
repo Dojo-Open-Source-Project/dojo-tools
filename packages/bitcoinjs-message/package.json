@@ -48,6 +48,6 @@
     "tiny-secp256k1": "catalog:"
   },
   "engines": {
-    "node": ">=16.6.0"
+    "node": ">=24"
   }
 }

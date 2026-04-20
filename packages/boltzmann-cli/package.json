@@ -6,7 +6,7 @@
   "homepage": "https://github.com/Dojo-Open-Source-Project/boltzmann",
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "bin": {
     "boltzmann": "./dist/bin.js"

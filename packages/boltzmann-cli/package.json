@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@dojo-tools/boltzmann": "workspace:*",
-    "socks": "^2.8.5",
+    "socks": "^2.8.9",
     "undici": "catalog:"
   },
   "repository": {

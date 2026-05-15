@@ -3,11 +3,10 @@ packages:
 
 catalog:
   '@noble/hashes': 2.2.0
-  '@scure/base': ^2.0.0
+  '@scure/base': ^2.2.0
   tiny-secp256k1: ^2.2.3
-  undici: ^8.1.0
-
-onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - esbuild
-  - unrs-resolver
+  undici: ^8.2.0
+allowBuilds:
+  '@biomejs/biome': true
+  esbuild: true
+  unrs-resolver: true

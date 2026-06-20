@@ -16,8 +16,8 @@ catalogs:
       specifier: ^2.2.3
       version: 2.2.4
     undici:
-      specifier: ^8.1.0
-      version: 8.1.0
+      specifier: ^8.5.0
+      version: 8.5.0
 
 importers:
 
@@ -78,7 +78,7 @@ importers:
     dependencies:
       undici:
         specifier: 'catalog:'
-        version: 8.1.0
+        version: 8.5.0
 
   packages/bitcoinjs-message:
     dependencies:
@@ -122,7 +122,7 @@ importers:
         version: 2.8.7
       undici:
         specifier: 'catalog:'
-        version: 8.1.0
+        version: 8.5.0
 
   packages/electrum-client: {}
 
@@ -1029,8 +1029,8 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  undici@8.1.0:
-    resolution: {integrity: sha512-E9MkTS4xXLnRPYqxH2e6Hr2/49e7WFDKczKcCaFH4VaZs2iNvHMqeIkyUAD9vM8kujy9TjVrRlQ5KkdEJxB2pw==}
+  undici@8.5.0:
+    resolution: {integrity: sha512-xamtWoB1EshgjpmlXd7GGm2VfdDtw1+rD8uhry8pSNW3If6S8E0m2T2+orSKeZXEn/aPJMviCpDBA65WJt8zhg==}
     engines: {node: '>=22.19.0'}
 
   valibot@1.3.1:
@@ -1851,7 +1851,7 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  undici@8.1.0: {}
+  undici@8.5.0: {}
 
   valibot@1.3.1(typescript@6.0.3):
     optionalDependencies:

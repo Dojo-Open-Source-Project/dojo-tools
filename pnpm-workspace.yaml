@@ -5,7 +5,7 @@ catalog:
   '@noble/hashes': 2.2.0
   '@scure/base': ^2.0.0
   tiny-secp256k1: ^2.2.3
-  undici: ^8.1.0
+  undici: ^8.5.0
 
 onlyBuiltDependencies:
   - '@biomejs/biome'

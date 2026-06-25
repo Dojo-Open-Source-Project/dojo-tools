@@ -30,7 +30,7 @@
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --rootDir src --outDir dist --paths null"
   },
   "devDependencies": {
-    "@types/big.js": "^6.2.2"
+    "@types/big.js": "^7.0.0"
   },
   "dependencies": {
     "big.js": "^7.0.1"

@@ -58,6 +58,6 @@
   },
   "devDependencies": {
     "tiny-secp256k1": "catalog:",
-    "typedoc": "^0.28.5"
+    "typedoc": "^0.28.20"
   }
 }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.0.1
+- Updated dependencies
+
 ## 4.0.0
 - Renamed package to `@dojo-tools/bitcoinjs-message`
 - The minimal Node.js version is now v24
